@@ -23,3 +23,5 @@
   - name: print the ec2_output
     ansible.builtin.debug:
       msg: "{{ ec2_output }}"
+
+    # we have to install pip3.9 install botocore boto3
