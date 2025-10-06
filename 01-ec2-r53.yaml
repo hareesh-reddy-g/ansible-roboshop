@@ -4,13 +4,13 @@
   vars:
     ami_id: ami-09c813fb71547fc4f
     sg_id: sg-0740382b167ac0ce2
-    zone_id: Z0278110EQPYQ4AALTQX
+    zone_id: "Z0278110EQPYQ4AALTQX"
     domain_name: "hareesh.space"
     instances:
     - mongodb
   tasks:
   - name: create ec2 instance
-    amazon.aws.ec2 instance
+    amazon.aws.ec2_instance:
       name: "{{ item }}"
       instance_type: t3.micro
       security_group: "{{ sg_id }}"
