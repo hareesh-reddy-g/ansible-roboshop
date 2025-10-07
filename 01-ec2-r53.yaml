@@ -3,10 +3,11 @@
   connection: local
   vars:
     ami_id: ami-09c813fb71547fc4f
-    sg_id: sg-0740382b167ac0ce2
-    zone_id: "Z0278110EQPYQ4AALTQX"
+    sg_id: sg-0740382b167ac0ce2 # replace with your SG ID
+    zone_id: "Z0278110EQPYQ4AALTQX" # replace with your ID
     domain_name: "hareesh.space"
-    instances:
+    # we can pass instances through command line using -e
+    instances: 
     - mongodb
   tasks:
   - name: create ec2 instance
@@ -24,12 +25,21 @@
   #   ansible.builtin.debug:
   #     msg: "{{ ec2_output }}"
 
-  # we have to install pip3.9 install botocore boto3
+  # - name: print public_ip
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].public_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"
+
+  # - name: print private_ip
+  #   ansible.builtin.debug: 
+  #     msg: "{{ item.instances[0].private_ip_address }}"
+  #   loop: "{{ ec2_output.results }}"
+
   - name: create route53 record
     amazon.aws.route53:
       state: present
       zone: "{{ domain_name }}"
-      record: "{{ item.item }} . {{ domain_name }}"
+      record: "{{ item.item }}.{{ domain_name }}" # mongodb.hareesh.space
       type: A
       ttl: 1
       value: "{{ item.instances[0].private_ip_address }}"
