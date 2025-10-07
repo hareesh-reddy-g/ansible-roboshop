@@ -20,8 +20,18 @@
     loop: "{{ instances }}"
     register: ec2_output
 
-  - name: print the ec2_output
-    ansible.builtin.debug:
-      msg: "{{ ec2_output }}"
+  # - name: print the ec2_output
+  #   ansible.builtin.debug:
+  #     msg: "{{ ec2_output }}"
 
-    # we have to install pip3.9 install botocore boto3
+  # we have to install pip3.9 install botocore boto3
+  - name: create route53 record
+    amazon.aws.route53:
+      state: present
+      zone: "{{ domain_name }}"
+      record: "{{ item.item }} . {{ domain_name }}"
+      type: A
+      ttl: 1
+      value: "{{ item.instances[0].private_ip_address }}"
+      overwrite: true
+    loop: "{{ ec2_output.results }}"
