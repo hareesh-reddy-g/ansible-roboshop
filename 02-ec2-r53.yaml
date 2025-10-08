@@ -49,3 +49,13 @@
       value: "{{ item.instances[0].private_ip_address }}"
       overwrite: true
     loop: "{{ ec2_output.results }}"
+
+
+    # this is for more instances and records 
+    # sudo dnf install ansible -y
+    # aws configure
+    #     access key & secret key in IAM user under administrater
+
+    # pip3.9 install botocore boto3
+
+    # ansible-playbook -i inventory.ini -e ansible_user=ec2-user -e ansible_passwod=DevOps321 02-ec2-r53.yaml
