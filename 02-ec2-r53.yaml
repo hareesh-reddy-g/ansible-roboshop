@@ -3,8 +3,8 @@
   connection: local
   vars:
     ami_id: ami-09c813fb71547fc4f
-    sg_id: sg-0740382b167ac0ce2 # replace with your SG ID
-    zone_id: "Z0278110EQPYQ4AALTQX" # replace with your ID
+    sg_id: sg-08135b679290f9e3c  # replace with your SG ID
+    zone_id: "Z099665035X39GB8IHQAJ" # replace with your ID
     domain_name: "hareesh.space"
     # we can pass instances through command line using -e
     instances: 
